@@ -17,15 +17,15 @@ Rozwiązanie powinno korzystać z dynamicznie alokowanych struktur danych. Imple
 
 Program ma wykonywać następujące operacje:
 
-* `addUser <parentUserId> <userId>` – Użytkownik o identyfikatorze `parentUserId` dodaje użytkownika o identyfikatorze `userId`. Operacja ma się wykonywać w czasie stałym.
+* `addUser <parentUserId> <userId>` -- Użytkownik o identyfikatorze `parentUserId` dodaje użytkownika o identyfikatorze `userId`. Operacja ma się wykonywać w czasie stałym.
 
-* `delUser <userId>` – Użytkownik o identyfikatorze `userId` wypisuje się. Dodane przez niego preferencje filmowe są zapominane. Użytkownicy uprzednio dodani przez użytkownika `userId` stają się potomkami rodzica użytkownika `userId`. Usunięcie użytkownika ma się wykonywać w czasie stałym. Zapominanie preferencji filmowych ma się wykonywać w czasie liniowym względem liczby preferencji usuwanego użytkownika.
+* `delUser <userId>` -- Użytkownik o identyfikatorze `userId` wypisuje się. Dodane przez niego preferencje filmowe są zapominane. Użytkownicy uprzednio dodani przez użytkownika `userId` stają się potomkami rodzica użytkownika `userId`. Usunięcie użytkownika ma się wykonywać w czasie stałym. Zapominanie preferencji filmowych ma się wykonywać w czasie liniowym względem liczby preferencji usuwanego użytkownika.
 
-* `addMovie <userId> <movieRating>` – Użytkownik o identyfikatorze `userId` dodaje film o identyfikatorze `movieRating` do swoich preferencji filmowych. Operacja ma się wykonywać w czasie co najwyżej liniowym względem liczby preferencji użytkownika, który dodaje film.
+* `addMovie <userId> <movieRating>` -- Użytkownik o identyfikatorze `userId` dodaje film o identyfikatorze `movieRating` do swoich preferencji filmowych. Operacja ma się wykonywać w czasie co najwyżej liniowym względem liczby preferencji użytkownika, który dodaje film.
 
-* `delMovie <userId> <movieRating>` – Użytkownik o identyfikatorze `userId` usuwa film o identyfikatorze `movieRating` ze swoich preferencji filmowych. Operacja ma się wykonywać w czasie co najwyżej liniowym względem liczby preferencji użytkownika, który usuwa film.
+* `delMovie <userId> <movieRating>` -- Użytkownik o identyfikatorze `userId` usuwa film o identyfikatorze `movieRating` ze swoich preferencji filmowych. Operacja ma się wykonywać w czasie co najwyżej liniowym względem liczby preferencji użytkownika, który usuwa film.
 
-* `marathon <userId> <k>` – Wyznacza co najwyżej `k` identyfikatorów filmów o najwyższych ocenach spośród:
+* `marathon <userId> <k>` -- Wyznacza co najwyżej `k` identyfikatorów filmów o najwyższych ocenach spośród:
 
   * własnych preferencji filmowych użytkownika o identyfikatorze `userId`;
 

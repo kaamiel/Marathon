@@ -14,12 +14,19 @@ else
 
   tmp=$(mktemp -u)
 
+  if [ "${1#*/}" == "$1" ]
+  then
+    prog="./$1"
+  else
+    prog="$1"
+  fi
+
   echo -e "\nTestuję $1 w katalogu $2..\n"
 
   for f in $2/*.in
   do
 
-    ./$1 < $f > ${tmp}.out 2> ${tmp}.err
+    $prog < $f > ${tmp}.out 2> ${tmp}.err
     
     echo -ne "\033[1;37m${f%.in}\033[0m\t"
     
