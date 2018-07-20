@@ -8,8 +8,10 @@
 
 #define max(a, b) ((a) > (b)) ? (a) : (b)
 
-// if NDEBUG is not defined, the program will write some unnecessary stuff
+// if NDEBUG is not defined, the program may write some unnecessary stuff
+#ifndef NDEBUG
 #define NDEBUG
+#endif
 
 // static array of pointers
 static Tree *users[MAX_USER_ID + 1];

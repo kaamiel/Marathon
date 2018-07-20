@@ -11,7 +11,7 @@ Partly in Polish.
 
 Celem zadania jest napisanie programu umożliwiającego grupom fanów kina wybieranie filmów do maratonu filmowego. Każdy kinomaniak (użytkownik) może wprowadzać preferowane filmy, które chciałby obejrzeć w trakcie maratonu, może je także usuwać. Użytkownik identyfikowany jest za pomocą identyfikatora liczbowego. Identyfikatory użytkowników są unikalne. Film identyfikowany jest za pomocą identyfikatora liczbowego. Identyfikatory filmów są unikalne. Użytkownicy tworzą drzewo. Każdy już zapisany użytkownik może dopisywać nowych użytkowników, jako potomków swojego wierzchołka drzewa. Na początku istnieje użytkownik o identyfikatorze 0 (korzeń drzewa), niemający żadnych preferencji filmowych. Każdy użytkownik z wyjątkiem użytkownika o identyfikatorze 0 może siebie wypisać. Identyfikator filmu jest też jego arbitralnie ustaloną oceną.
 
-Rozwiązanie powinno korzystać z dynamicznie alokowanych struktur danych. Implementacja powinna być jak najbardziej efektywna. Należy unikać zbędnego alokowania pamięci i kopiowania danych. Przykładowe dane dla programu znajdują się w załączonym pliku.
+Rozwiązanie powinno korzystać z dynamicznie alokowanych struktur danych. Implementacja powinna być jak najbardziej efektywna. Należy unikać zbędnego alokowania pamięci i kopiowania danych. Do wykrywania problemów z zarządzaniem pamięcią należy użyć programu `valgrind`. Przykładowe dane dla programu znajdują się w załączonym pliku.
 
 ## Operacje
 
@@ -61,19 +61,32 @@ Program wypisuje informacje o błędach na standardowe wyjście diagnostyczne.
 
 Program kończy się po przetworzeniu wszystkich operacji z wejścia i powinien wtedy zakończyć się kodem 0. Awaryjne zakończenie programu, np. na skutek niemożliwości zaalokowania potrzebnej pamięci, powinno być sygnalizowane kodem 1. Przed zakończeniem program powinien zwolnić całą zaalokowaną pamięć.
 
-## Makefile
+## CMake
 
-Częścią zadania jest napisanie pliku `makefile`. W wyniku wywołania polecenia `make` powinien powstać program wykonywalny `main`. Jeśli któryś z plików źródłowych ulegnie zmianie, ponowne wpisanie `make` powinno na nowo stworzyć plik wykonywalny. Plik `makefile` powinien działać w następujący sposób:
-
-* osobno kompiluje każdy plik `.c`,
-* osobno linkuje wszystkie pliki `.o`,
-* przy zmianie w pliku `.c` lub `.h` wykonuje tylko niezbędne akcje,
-* wywołanie `make clean` usuwa plik wykonywalny i dodatkowe pliki powstałe podczas kompilowania.
-
-Pliki należy kompilować z opcjami:
+Powinna być możliwość skompilowania rozwiązania w dwóch wersjach: release i debug. Wersję release kompiluje się za pomocą sekwencji poleceń:
 
 ```
--Wall -Wextra -std=c11 -O2
+mkdir release
+cd release
+cmake ..
+make
+make doc
+```
+
+Wersję debug kompiluje się za pomocą sekwencji poleceń:
+
+```
+mkdir debug
+cd debug
+cmake -D CMAKE_BUILD_TYPE=Debug ..
+make
+make doc
+```
+
+W wyniku kompilacji powinien powstać plik wykonywalny `main` oraz dokumentacja. W poleceniu `cmake` powinno być również możliwe jawne określenie wariantu release budowania pliku wynikowego:
+
+```
+cmake -D CMAKE_BUILD_TYPE=Release ..
 ```
 
 ## Skrypt testujący
@@ -84,28 +97,16 @@ Osobną częścią zadania jest napisanie skryptu `test.sh`. Po wywołaniu
 ./test.sh <prog> <dir>
 ```
 
-skrypt powinien uruchomić program `<prog>` dla wszystkich plików wejściowych postaci `<dir>/*.in`, porównać wyniki z odpowiadającymi im plikami `<dir>/*.out` i `<dir>/*.err`, a następnie wypisać, które testy zakończyły się powodzeniem, a które niepowodzeniem. Do wykrywania problemów z zarządzaniem pamięcią należy użyć programu `valgrind`.
+skrypt powinien uruchomić program `<prog>` dla wszystkich plików wejściowych postaci `<dir>/*.in`, porównać wyniki z odpowiadającymi im plikami `<dir>/*.out` i `<dir>/*.err`, a następnie wypisać, które testy zakończyły się powodzeniem, a które niepowodzeniem.
 
 ## Podział na pliki
 
 Rozwiązanie powinno zawierać następujące pliki:
 
-* `main.c` -- Główny plik programu, w którym wczytuje się dane wejście, wywołuje operacje na strukturach danych i wypisuje wyniki działania programu. Plik ten nie powinien znać szczegółów definicji i implementacji użytych struktur danych.
-* `x.c`, `x.h` -- Implementacja modułu (struktury danych) `x`. Plik `x.h` zawiera deklaracje operacji modułu `x`, a plik `x.c` -- ich implementację. Jako `x` należy użyć stosownej nazwy modułu (struktury danych), np. `tree` itp. Powinno być tyle par plików `x.c`, `x.h`, ile jest w rozwiązaniu modułów (struktur danych).
-* `makefile` -- Patrz punkt ,,makefile".
+* `src/main.c` -- Główny plik programu, w którym wczytuje się dane wejście, wywołuje operacje na strukturach danych i wypisuje wyniki działania programu. Plik ten nie powinien znać szczegółów definicji i implementacji użytych struktur danych.
+* `src/x.c`, `src/x.h` -- Implementacja modułu (struktury danych) `x`. Plik `src/x.h` zawiera deklaracje operacji modułu `x`, a plik `src/x.c` -- ich implementację. Jako `x` należy użyć stosownej nazwy modułu (struktury danych), np. `tree` itp. Powinno być tyle par plików `src/x.c`, `src/x.h`, ile jest w rozwiązaniu modułów (struktur danych).
 * `test.sh` -- Patrz punkt ,,skrypt testujący".
-
-Rozwiązanie należy oddać jako archiwum skompresowane programem `zip` lub parą programów `tar` i `gz`.
-
-## Punktacja
-
-Za w pełni poprawne rozwiązanie zadania implementujące wszystkie funkcjonalności można zdobyć maksymalnie 20 punktów. Rozwiązanie niekompilujące się lub nie oparte na dynamicznie alokowanych strukturach danych będzie ocenione na 0 punktów. Możliwe są punkty karne za poniższe uchybienia:
-
-* Za każdy test, którego program nie przejdzie, traci się 1 punkt.
-* Za problemy z zarządzaniem pamięcią można stracić do 6 punktów.
-* Za niezgodną ze specyfikacją strukturę plików w rozwiązaniu można stracić do 4 punktów.
-* Za złą złożoność operacji można stracić do 4 punktów.
-* Za błędy stylu kodowania można stracić do 4 punktów.
-* Za brak lub źle działający `makefile` można stracić do 2 punktów.
-* Za brak skryptu testującego lub błędy w skrypcie testującym można stracić do 2 punktów.
+* `CMakeLists.txt` -- plik konfiguracyjny programu `cmake`,
+* `Doxyfile.in` -- plik konfiguracyjny programu `doxygen`,
+* `MainPage.dox` -- strona główna dokumentacji w formacie `doxygen`.
 

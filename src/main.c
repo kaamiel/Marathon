@@ -7,8 +7,10 @@
 #include "tree.h"
 #include "constants.h"
 
-// if NDEBUG is not defined, the program will write some unnecessary stuff
+// if NDEBUG is not defined, the program may write some unnecessary stuff
+#ifndef NDEBUG
 #define NDEBUG
+#endif
 
 // sprawdza, czy napis (zakończony znakiem '\n') o maksymalnej
 // długości maxLength jest liczbą

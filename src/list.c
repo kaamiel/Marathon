@@ -12,7 +12,9 @@
 #include "list.h"
 
 // if NDEBUG is not defined, the program may write some unnecessary stuff
+#ifndef NDEBUG
 #define NDEBUG
+#endif
 
 bool insertSortedList(List** l, int k) {
   if (*l == NULL || (*l)->value < k) {
