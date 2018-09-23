@@ -1,0 +1,8 @@
+addUser 0 01
+addMovie 01 01
+addMovie 1 02
+marathon 01 1
+marathon 1 02
+delMovie 01 01
+delMovie 1 02
+delUser 01

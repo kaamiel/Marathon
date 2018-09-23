@@ -26,7 +26,6 @@ typedef struct DList {
  */
 extern DList* insertFrontDList(DList** beg, int k);
 
-// wstawia element za pierwszym elementem listy, zwraca jego wskaźnik
 /** @brief Wstawia nowy element za pierwszym elementem listy.
  * Wstawia liczbę @p k za pierwszym elementem listy.
  * @param[in, out] first – wskaźnik na wskaźnik na pierwszy element listy;
@@ -37,16 +36,16 @@ extern DList* insertAfterFirstDList(DList** first, int k);
 
 /** @brief Usuwa element z listy.
  * Usuwa element listy wskazywany przez @p toRemove.
- * @param[in, out] toRemove  – wskaźnik na wskaźnik na usuwany element listy;
+ * @param[in, out] toRemove – wskaźnik na wskaźnik na usuwany element listy.
  */
 extern void removeDList(DList** toRemove);
 
-/** @brief Zastępuje element listy.
+/** @brief Zastępuje element listy inną listą.
  * Zastępuje element listy wskazywany przez @p toRemove listą o początku @p beg
  * i końcu @p end.
- * @param[in, out] toRemove  – wskaźnik na wskaźnik na zastępowany element listy;
- * @param[in, out] beg  – wskaźnik na wskaźnik na pierwszy element dołączanej listy;
- * @param[in, out] end  – wskaźnik na wskaźnik na ostatni element dołączanej listy;
+ * @param[in, out] toRemove – wskaźnik na wskaźnik na zastępowany element listy;
+ * @param[in, out] beg – wskaźnik na wskaźnik na pierwszy element dołączanej listy;
+ * @param[in, out] end – wskaźnik na wskaźnik na ostatni element dołączanej listy.
  */
 extern void replaceDList(DList** toRemove, DList** beg, DList** end);
 

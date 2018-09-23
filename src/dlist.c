@@ -1,5 +1,5 @@
 /** @file
- * Implementacja klasy list par liczb całkowitych.
+ * Implementacja klasy dwukierunkowych list liczb całkowitych.
  *
  * @author Kamil Dubil <kd370826@students.mimuw.edu.pl>
  * @copyright Uniwersytet Warszawski

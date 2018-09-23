@@ -1,0 +1,10 @@
+addUser 0 65537
+addUser 0 65536
+addUser 65536 1
+addUser 0 1
+addUser 0 0
+addUser 1 0
+delUser 65537
+delUser 65536
+delUser 1
+delUser 0

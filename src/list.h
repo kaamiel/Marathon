@@ -1,5 +1,5 @@
 /** @file
- * Interfejs klasy róznowartościowych, posortowanych list liczb całkowitych.
+ * Interfejs klasy różnowartościowych, posortowanych list liczb całkowitych.
  *
  * @author Kamil Dubil <kd370826@students.mimuw.edu.pl>
  * @copyright Uniwersytet Warszawski
@@ -19,7 +19,7 @@ typedef struct List {
 } List;
 
 /** @brief Wstawia nowy element do listy, wynikowa lista jest malejąca.
- * Wstawia liczbę @p k do listy.
+ * Wstawia liczbę @p k do listy @p l.
  * @param[in, out] l – wskaźnik na wskaźnik na pierwszy element listy;
  * @param[in] k – wstawiana liczba.
  * @return Wartość @p true, jeśli element został dodany.
@@ -30,7 +30,7 @@ extern bool insertSortedList(List** l, int k);
 
 /** @brief Usuwa element z listy.
  * Usuwa liczbę @p k z listy @p l, lista po usunięciu elementu pozostaje malejąca.
- * @param[in, out] l  – wskaźnik na wskaźnik na pierwszy element listy;
+ * @param[in, out] l – wskaźnik na wskaźnik na pierwszy element listy;
  * @param[in] k – usuwana liczba.
  * @return Wartość @p true, jeśli element został usunięty.
  *         Wartość @p false, jeśli lista nie zawierała liczby @p k.
@@ -51,9 +51,9 @@ extern void delList(List** l);
 extern void printList (List *l);
 
 /** @brief Wyświetla początkowe k elementów listy.
- * Wypisuje na standardowe wyjście początkowe k elementów listy wskazywanej
+ * Wypisuje na standardowe wyjście początkowe @p k elementów listy wskazywanej
  * przez @p l.
- * @param[in] l – wskaźnik na pierwszy element wyświetlanej listy.
+ * @param[in] l – wskaźnik na pierwszy element wyświetlanej listy;
  * @param[in] k – liczba wyświetlanych elementów. 
  */
 extern void printFirstkElementsList (List *l, int k);

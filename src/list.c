@@ -1,5 +1,5 @@
 /** @file
- * Implementacja klasy róznowartościowych, posortowanych list liczb całkowitych.
+ * Implementacja klasy różnowartościowych, posortowanych list liczb całkowitych.
  *
  * @author Kamil Dubil <kd370826@students.mimuw.edu.pl>
  * @copyright Uniwersytet Warszawski

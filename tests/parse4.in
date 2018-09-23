@@ -1,0 +1,53 @@
+ # wrong comment
+addUser 0 1000
+addUser -1 999
+addMovie 1000 1000
+addUser
+addUser 0
+addUser 0 1 2
+adduser 0 3
+ADDUSER 0 4
+addUser 0 a
+addUser 0 5a
+addUser 1000z 6
+addUser 0 6 addUser 0 7
+delUser -1
+delUser
+delUser bc
+delUser 1000de
+delUser 1000 1
+delUser 1000 delUser 1000
+deluser 1000
+DELUSER 1000
+addMovie -1 999
+addMovie 1000 -1
+addMovie
+addMovie 1000
+addMovie 1000f
+addMovie 1000 g
+addMovie 1000 13h
+addMovie m 14
+addMovie 1000 1 2
+addMovie 1000 11 addMovie 1000 12
+addmovie 1000 3
+ADDMOVIE 1000 4
+delMovie -1 999
+delMovie 1000 -1
+delMovie 1000
+delMovie 1000i 1000
+delMovie 1000 1000j
+delMovie 1000 1000 5
+delMovie 1000 1000 delMovie 1000 1000
+delmovie 1000 1000
+DELMOVIE 1000 1000
+marathon -1 2
+marathon 1000 -1
+marathon
+marathon 1000
+marathon y 5
+marathon 1000z 5
+marathon 1000 5x
+marathon 1000 w
+marathon 1000 7 9
+marathon 1000 2 marathon 1000 2
+MARATHON 1000 2

@@ -1,3 +1,11 @@
+/** @file
+ * Implementacja programu obsługującego inne moduły.
+ *
+ * @author Kamil Dubil <kd370826@students.mimuw.edu.pl>
+ * @copyright Uniwersytet Warszawski
+ * @date 03.04.2018
+ */
+
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
@@ -12,8 +20,16 @@
 #define NDEBUG
 #endif
 
-// sprawdza, czy napis (zakończony znakiem '\n') o maksymalnej
-// długości maxLength jest liczbą
+/** @brief Sprawdza, czy napis reprezentuje liczbę.
+ * Sprawdza, czy napis @p beg, zakończony znakiem '\n', jest tekstową
+ * reprezentacją liczby całkowitej o maksymalnej długości @p maxLength.
+ * @param[in] beg – sprawdzany napis;
+ * @param[in] maxLength – liczba całkowita, maksymalna długość sprawdzanego napisu.
+ * @return Wartość @p true, jeśli napis @p beg reprezentuje liczbę całkowitą
+ *         o maksymalnej długości @p maxLength.
+ *         Wartość @p false, jeśli napis @p beg nie reprezentuje liczby
+ *         całkowitej lub jest dłuższy niż @p maxLength.
+ */
 static bool isNumberOnlyBeg(char *beg, unsigned maxLength) {
   if (beg == NULL || strlen(beg) > maxLength + 1) {
     return false;
@@ -28,7 +44,17 @@ static bool isNumberOnlyBeg(char *beg, unsigned maxLength) {
   return true;
 }
 
-// sprawdza, czy napis pomiędzy beg i end jest liczbą
+/** @brief Sprawdza, czy napis reprezentuje liczbę.
+ * Sprawdza, czy napis o początku @p beg i końcu @p end jest tekstową
+ * reprezentacją liczby całkowitej o maksymalnej długości @p maxLength.
+ * @param[in] beg – początek sprawdzanego napisu;
+ * @param[in] end – koniec sprawdzanego napisu;
+ * @param[in] maxLength – liczba całkowita, maksymalna długość sprawdzanego napisu.
+ * @return Wartość @p true, jeśli napis pomiędzy @p beg i @p end reprezentuje
+ *         liczbę całkowitą o maksymalnej długości @p maxLength.
+ *         Wartość @p false, jeśli napis nie reprezentuje liczby całkowitej
+ *         lub jest dłuższy niż @p maxLength.
+ */
 static bool isNumberBegEnd(char *beg, char *end, unsigned maxLength) {
   if (beg == NULL || end == NULL || beg == end ||
     strlen(beg) - strlen(end) > maxLength + 1) {
@@ -43,7 +69,13 @@ static bool isNumberBegEnd(char *beg, char *end, unsigned maxLength) {
   return true;
 }
 
-
+/** @brief Obsługuje wejście i wyjście.
+ * Program czyta dane ze standardowego wejścia, wyniki
+ * wypisuje na standardowe wyjście, a informacje o błędach na standardowe wyjście
+ * diagnostyczne.
+ * @return Kod wyjścia 0 w przypadku poprawnego zakończenia programu
+ * i 1 w przypadku zakończenia programu z błędem.
+ */
 int main() {
   init();
 

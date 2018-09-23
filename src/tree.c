@@ -1,3 +1,11 @@
+/** @file
+ * Implementacja klasy drzewa użytkowników.
+ *
+ * @author Kamil Dubil <kd370826@students.mimuw.edu.pl>
+ * @copyright Uniwersytet Warszawski
+ * @date 03.04.2018
+ */
+
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
@@ -6,6 +14,9 @@
 #include "tree.h"
 #include "constants.h"
 
+/** @brief Wyznacza maksimum z dwóch liczb.
+ * Oblicza funkcję max(@p a, @p b).
+ */
 #define max(a, b) ((a) > (b)) ? (a) : (b)
 
 // if NDEBUG is not defined, the program may write some unnecessary stuff
@@ -13,11 +24,16 @@
 #define NDEBUG
 #endif
 
-// static array of pointers
+/**
+ * Statyczna tablica wskaźników na użytkowników.
+ */
 static Tree *users[MAX_USER_ID + 1];
 
-// inicjalizuje dwukierunkową listę dzieci jako [-1, -1] (atrapy
-// początku i końca listy), zwraca wskaźnik do początku utworzonej listy
+/** @brief Inicjalizuje listę potomków.
+ * Tworzy świeżą dwukierunkową listę potomków: [DEFAULT_FIRST_LAST_CHILD,
+ * DEFAULT_FIRST_LAST_CHILD] – atrapy początku i końca listy.
+ * @return Wskaźnik na pierwszy element zaalokowanej listy.
+ */
 static DList *initFirstChild() {
   DList *ptr = (DList *)malloc(sizeof(DList));
   if (ptr == NULL) {
@@ -47,9 +63,32 @@ void init() {
   root->pointerOnParentsChildrenList = NULL;
 }
 
+/** @brief Sprawdza, czy liczba jest poprawnym identyfikatorem użytkownika.
+ * Sprawdza, czy liczba @p userId jest poprawnym identyfikatorem użytkownika.
+ * @param[in] userId – Sprawdzana liczba.
+ * @return Wartość @p true, jeśli liczba jest poprawnym identyfikatorem użytkownika.
+ *         Wartość @p false, jeśli liczba nie jest poprawnym identyfikatorem
+ *         użytkownika.
+ */
+static inline bool validUserId(int userId) {
+  return 0 <= userId && userId <= MAX_USER_ID;
+}
+
+/** @brief Sprawdza, czy liczba jest poprawnym identyfikatorem/oceną filmu.
+ * Sprawdza, czy liczba @p movieRating jest poprawnym identyfikatorem/oceną
+ * filmu.
+ * @param[in] movieRating – Sprawdzana liczba.
+ * @return Wartość @p true, jeśli liczba jest poprawnym identyfikatorem/oceną
+ *         filmu.
+ *         Wartość @p false, jeśli liczba nie jest poprawnym identyfikatorem/oceną
+ *         filmu.
+ */
+static inline bool validMovieRating(int movieRating) {
+  return 0 <= movieRating && movieRating <= MAX_MOVIE_RATING;
+}
+
 bool addChild(int parentUserId, int userId) {
-  if (parentUserId < 0 || MAX_USER_ID < parentUserId ||
-    userId <= 0 || MAX_USER_ID < userId) {
+  if (!validUserId(parentUserId) || !validUserId(userId) || userId == 0) {
     return false;
   }
   if (users[parentUserId] == NULL || users[userId] != NULL) {
@@ -72,14 +111,15 @@ bool addChild(int parentUserId, int userId) {
 }
 
 bool hasChildren(int userId) {
-  if (userId < 0 || MAX_USER_ID < userId)
+  if (!validUserId(userId)) {
     return false;
+  }
   Tree *user = users[userId];
   return !(user == NULL || user->firstChild->next == user->lastChild);
 }
 
 bool delChild(int userId) {
-  if (userId <= 0 || MAX_USER_ID < userId) {
+  if (!validUserId(userId) || userId == 0) {
     return false;
   }
   if (users[userId] == NULL) {
@@ -111,8 +151,7 @@ bool delChild(int userId) {
 }
 
 bool addMovie(int userId, int movieRating) {
-  if (userId < 0 || MAX_USER_ID < userId ||
-    movieRating < 0 || MAX_MOVIE_RATING < movieRating) {
+  if (!validUserId(userId) || !validMovieRating(movieRating)) {
     return false;
   }
   if (users[userId] == NULL) {
@@ -124,8 +163,7 @@ bool addMovie(int userId, int movieRating) {
 }
 
 bool delMovie(int userId, int movieRating) {
-  if (userId < 0 || MAX_USER_ID < userId ||
-    movieRating < 0 || MAX_MOVIE_RATING < movieRating) {
+  if (!validUserId(userId) || !validMovieRating(movieRating)) {
     return false;
   }
   if (users[userId] == NULL) {
@@ -168,10 +206,17 @@ void printUsers() {
   printf("|    Koniec użytkowników.    |\n+----------------------------+\n\n");
 }
 
-// wyznacza rekurencyjnie malejącą listę najlepszych filmów użytkownika userId
-// i jego dzieci, na liście są tylko filmy o ocenie większej niż minRating
+/** @brief Wyznacza listę najlepszych filmów.
+ * Wyznacza rekurencyjnie malejącą listę najlepszych filmów użytkownika
+ * @p userId i jego potomków. Na wynikowej liście są tylko filmy o ocenie
+ * większej niż @p minRating.
+ * @param[in] userId – Identyfikator użytkownika;
+ * @param[in] minRating – Minimalna ocena filmów;
+ * @param[in, out] acc – Akumulator wykorzystywany przy rekurencji;
+ * @param[in] k – Maksymalna wyznaczona liczba filmów jednego użytkownika.
+ */
 static void bestMovies(int userId, int minRating, List **acc, int k) {
-  if (userId < 0 || MAX_USER_ID < userId || k <= 0)
+  if (!validUserId(userId) || k <= 0)
     return;
 
   List *listOfMovies = users[userId]->movies;
@@ -199,8 +244,7 @@ static void bestMovies(int userId, int minRating, List **acc, int k) {
 }
 
 bool marathon(int userId, int k) {
-  if (userId < 0 || MAX_USER_ID < userId ||
-    k < 0 || MAX_MOVIE_RATING < k) {
+  if (!validUserId(userId) || !validMovieRating(k)) {
     return false;
   }
   if (users[userId] == NULL) {

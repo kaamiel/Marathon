@@ -15,11 +15,11 @@
  */
 #define MAX_MOVIE_RATING 2147483647
 /**
- * Maksymalna długość udentyfikatora użytkownika
+ * Długość maksymalnego identyfikatora użytkownika
  */
 #define MAX_USER_ID_LENGTH 5
 /**
- * Maksymalna długość oceny filmu
+ * Długość maksymalnej oceny filmu
  */
 #define MAX_MOVIE_RATING_LENGTH 10
 
